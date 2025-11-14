@@ -35,9 +35,9 @@ def inventory_totals(filename):
     Returns:
         List of floats, each representing the sum of a row rounded to 2 decimals
     """
-    totals = []  # List to store the rounded sums
+    totals = []  
     
-    # Open and read the file
+
     with open(filename, 'r') as file:
 
         for line in file:
@@ -63,34 +63,32 @@ def sensor_sums(filename):
     Returns:
         List of floats, each representing the sum of a column rounded to 2 decimals
     """
-    # Step 1: Read file and create 2D list
+
     data = []
     with open(filename, 'r') as file:
         for line in file:
-            # Split by comma and convert to floats
+
             row = []
             values = line.strip().split(',')
             for value in values:
-                if value:  # Only add non-empty values
+                if value:  
                     row.append(float(value))
             data.append(row)
     
-    # Step 2: Find the maximum number of columns (sensors)
+
     max_cols = 0
     for row in data:
         if len(row) > max_cols:
             max_cols = len(row)
     
-    # Step 3: Sum each column
     totals = []
     for col in range(max_cols):
         col_sum = 0
-        # Go through each row and add the value at this column if it exists
         for row in data:
-            if col < len(row):  # Check if this row has a value at this column
+            if col < len(row):  
                 col_sum += row[col]
         
-        # Round to 2 decimals and add to totals
+
         rounded_sum = round(col_sum, 2)
         totals.append(rounded_sum)
     
@@ -102,20 +100,13 @@ def daily_sales_summary(filename):
     """
     Reads a sales CSV file and returns a summary of valid sales.
     
-    A valid sale has:
-     A non-empty item name
-     A numeric price
-    
-    
     Returns:
-        Tuple of (count, total_revenue) where:
-         count: number of valid sales
-         total_revenue: sum of all valid sale prices, rounded to 2 decimals
+        Tuple of (count, total_revenue):
     """
     valid_count = 0
     total_revenue = 0.0
     
-    # Open and read the file
+
     with open(filename, 'r') as file:
         for line in file:
             if line.strip():
@@ -187,7 +178,6 @@ def is_magic_square(filename):
     Returns:
         True if the matrix is a magic square, False otherwise
     """
-    # Step 1: Read file and create 2D list
     matrix = []
     with open(filename, 'r') as file:
         for line in file:
@@ -198,34 +188,28 @@ def is_magic_square(filename):
                     row.append(int(value))
             matrix.append(row)
     
-    # Step 2: Check if matrix is square (n x n)
     n = len(matrix)
     for row in matrix:
         if len(row) != n:
-            return False  # Not a square matrix
+            return False  
     
-    # Step 3: Calculate the expected magic constant (sum of first row)
+   
     magic_constant = sum_row(matrix, 0)
     
-    # Step 4: Check all rows
     for i in range(n):
         if sum_row(matrix, i) != magic_constant:
             return False
     
-    # Step 5: Check all columns
     for j in range(n):
         if sum_column(matrix, j) != magic_constant:
             return False
     
-    # Step 6: Check main diagonal
     if sum_main_diagonal(matrix) != magic_constant:
         return False
     
-    # Step 7: Check anti-diagonal
     if sum_anti_diagonal(matrix) != magic_constant:
         return False
     
-    # If all checks pass, it's a magic square!
     return True
 
 #2.3
@@ -284,7 +268,6 @@ def main():
     print(f"After: {wages1}")
     print(f"Expected: [[20.0, 22.5], [20.0, 30.0, 20.0]]")
     
-    # Create test file
     with open('test_quantities.csv', 'w') as f:
         f.write("3.25,1.50,2.10\n")
         f.write("10\n")
@@ -296,8 +279,7 @@ def main():
     print(f"Expected: [6.85, 10.0, 7.0, 3.5]")
     
     
-    
-    # Create test file
+
     with open('test_sensors.csv', 'w') as f:
         f.write("5.0,1.0,2.0\n")
         f.write("1.0,2.0\n")
@@ -308,7 +290,6 @@ def main():
     print(f"Expected: [6.5, 3.5, 2.5]")    
     
     
-    # Create magic square test file
     with open('test_magic.txt', 'w') as f:
         f.write("2,7,6\n")
         f.write("9,5,1\n")
@@ -318,7 +299,6 @@ def main():
     print(f"Magic square result: {result}")
     print(f"Expected: True")
     
-    # Create non-magic square test file
     with open('test_not_magic.txt', 'w') as f:
         f.write("1,2,3\n")
         f.write("4,5,6\n")
@@ -329,7 +309,7 @@ def main():
     print(f"Expected: False")
     
     
-    # Create test file
+
     with open('test_sales.csv', 'w') as f:
         f.write("latte,4.50\n")
         f.write("cappuccino,5.00\n")
@@ -342,7 +322,6 @@ def main():
     print(f"Expected: (3, 12.0)")
     
     
-    # Create test file
     with open('test_seats.txt', 'w') as f:
         f.write("X O O X X\n")
         f.write("O O O X O X X X X X X\n")
