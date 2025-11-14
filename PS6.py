@@ -230,54 +230,48 @@ def is_magic_square(filename):
 
 #2.3
 def buy_ticket(filename, seat):
-    """
-    Books a ticket if the seat is available.
-    
-    Returns:
-        True if booking successful, False otherwise
-    """
-    # Step 1: Read file and create 2D list
     seats = []
     with open(filename, 'r') as file:
         for line in file:
-            if line.strip():  
+            if line.strip():
                 row = line.strip().split(' ')
-                if row:  
+                if row:
                     seats.append(row)
     
-    seat = seat.upper()
+    row_letter = seat[0]
+    col_number = seat[1:]
     
-    row_letter = seat[0]  
-    col_number = seat[1:]  
+    if ord(row_letter) >= ord('a') and ord(row_letter) <= ord('z'):
+        row_letter = chr(ord(row_letter) - 32)
+    
     
     row_index = ord(row_letter) - ord('A')
     
+    
     col_index = int(col_number) - 1
     
+  
     if row_index < 0 or row_index >= len(seats):
         return False
     
+   
     if col_index < 0 or col_index >= len(seats[row_index]):
         return False
     
-    
+   
     if seats[row_index][col_index] != 'O':
-        return False  
+        return False
     
     seats[row_index][col_index] = 'X'
     
     with open(filename, 'w') as file:
         for i in range(len(seats)):
-          
             line = ' '.join(seats[i])
             file.write(line)
-           
             if i < len(seats) - 1:
                 file.write('\n')
     
     return True
-
-
 
 ################################################################################
 
